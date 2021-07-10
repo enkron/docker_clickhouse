@@ -27,5 +27,5 @@ do
 done
 
 # insert data
-echo "INSERT INTO test(date,id,value) VALUES ('2006-08-08',1,'https://www.searchmetrics.com/')" | curl -XPOST 'http://172.1.1.1:'$port'/' --data-binary @-
-echo "INSERT INTO test_local(date,id,value) VALUES ('2016-06-01',2,'https://clickhouse.yandex/')" | curl -XPOST 'http://172.1.1.2:'$port'/' --data-binary @-
+echo "INSERT INTO test(date,id,value) VALUES ('2006-08-08',1,'https://www.helloclickhouse.com/')" | curl -XPOST 'http://172.1.1.1:'$port'/' --data-binary @-
+echo "INSERT INTO test_local(date,id,value) VALUES ('2016-06-01',2,'https://www.onetwothree.net/')" | curl -XPOST 'http://172.1.1.2:'$port'/' --data-binary @-
