@@ -1,0 +1,74 @@
+#jinja2: lstrip_blocks: True
+<?xml version="1.0"?>
+<yandex>
+
+{% if clickhouse_docker_user_profiles is defined and clickhouse_docker_user_profiles != None %}
+    <!-- Profiles of settings. -->
+    <profiles>
+        {% for profile in clickhouse_docker_user_profiles %}
+        <{{ profile }} replace="1">
+            {% for key, value in clickhouse_docker_user_profiles[profile].items() %}
+            <{{ key }}>{{ value }}</{{ key }}>
+            {% endfor %}
+        </{{ profile }}>
+        {% endfor %}
+   </profiles>
+
+{% endif %}
+
+{% if clickhouse_docker_user_quotas is defined and clickhouse_docker_user_quotas != None %}
+    <!-- Quotas. -->
+    <quotas>
+        {% for quota in clickhouse_docker_user_quotas %}
+        <{{ quota }} replace="1">
+            {% for key, value in clickhouse_docker_user_quotas[quota].items() %}
+            <{{ key }}>{{ value }}</{{ key }}>
+            {% endfor %}
+
+            {% for key, value in clickhouse_docker_user_quota_defaults.items() %}
+            {% if clickhouse_docker_user_quotas[quota][key] is not defined %}
+             <{{ key }}>{{ value }}</{{ key }}>
+            {% endif %}
+            {% endfor %}
+        </{{ quota }}>
+        {% endfor %}
+    </quotas>
+{% endif %}
+
+{% if clickhouse_docker_users is defined and clickhouse_docker_users != None %}
+    <!-- Users and ACL. -->
+    <users>
+    {% for user in clickhouse_docker_users %}
+
+        <{{ user }} replace="1">
+            {% for key, value in clickhouse_docker_users[user].items() %}
+            {% if key != 'networks' %}
+            <{{ key }}>{{ value }}</{{ key }}>
+            {% endif %}
+            {% endfor %}
+
+            <networks incl="networks" replace="replace">
+            {% if clickhouse_docker_users[user]['networks'] is not defined %}
+                {% for network in clickhouse_docker_user_networks_default %}
+                {{ network }}
+                {% endfor %}
+            {% else %}
+                {% for network in clickhouse_docker_users[user]['networks'] %}
+                {{ network }}
+                {% endfor %}
+            {% endif %}
+            </networks>
+
+            {% if clickhouse_docker_users[user]['profile'] is not defined %}
+            <profile>default</profile>
+            {% endif %}
+
+            {% if clickhouse_docker_users[user]['quota'] is not defined %}
+            <quota>default</quota>
+            {% endif %}
+        </{{ user }}>
+    {% endfor %}
+    </users>
+{% endif %}
+
+</yandex>

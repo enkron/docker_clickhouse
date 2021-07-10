@@ -1,0 +1,10 @@
+---
+
+- include_tasks: folder.yml
+  tags: [clickhouse, folder]
+
+- include_tasks: config.yml
+  tags: [clickhouse, config]
+
+- include_tasks: docker.yml
+  tags: [clickhouse, docker]

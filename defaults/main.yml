@@ -1,0 +1,66 @@
+---
+# host
+clickhouse_docker_host_data_folder: "/tmp/docker-clickhouse-data"
+clickhouse_docker_host_config_folder: "/tmp/docker-clickhouse-config"
+clickhouse_docker_host_logs_folder: "/tmp/docker-clickhouse-logs"
+
+# docker
+clickhouse_docker_version: latest
+clickhouse_docker_restart: no
+clickhouse_docker_networks: []
+clickhouse_docker_network_mode: host
+clickhouse_docker_container_name: clickhouse
+clickhouse_docker_bind_mounts:
+  - "{{clickhouse_docker_host_data_folder}}:/var/lib/clickhouse"
+  - "{{clickhouse_docker_host_config_folder}}:/etc/clickhouse-server/conf.d"
+  - "{{clickhouse_docker_host_logs_folder}}:/var/log/clickhouse-server"
+clickhouse_docker_ulimits:
+  - "nofile:262144:262144"
+clickhouse_docker_published_ports:
+  - "8123"
+  - "9000"
+  - "9009"
+clickhouse_docker_exposed_ports:
+  - "8123"
+  - "9000"
+  - "9009"
+clickhouse_docker_log_driver: json-file
+clickhouse_docker_log_options:
+
+clickhouse_docker_purge_networks: no
+
+# clickhouse
+clickhouse_docker_config:
+  listen_host:            127.0.0.1
+  interserver_http_host:  127.0.0.1
+  http_port:              8123
+  tcp_port:               9000
+
+clickhouse_docker_config_resharding:
+  - /clickhouse/task_queue
+
+clickhouse_docker_config_distributed_ddl:
+  - /clickhouse/task_queue/ddl
+
+clickhouse_docker_user_quotas:
+
+clickhouse_docker_user_quota_defaults:
+  duration:       3600
+  queries:        0
+  errors:         0
+  result_rows:    0
+  read_rows:      0
+  execution_time: 0
+
+clickhouse_docker_user_profiles:
+
+clickhouse_docker_users:
+
+clickhouse_docker_user_networks_default:
+  - "<ip>::/0</ip>"
+
+clickhouse_docker_remote_servers:
+
+clickhouse_docker_zookeeper_hosts:
+
+clickhouse_docker_macros:

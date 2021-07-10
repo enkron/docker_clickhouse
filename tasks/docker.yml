@@ -1,0 +1,17 @@
+---
+
+- name: Start ClickHouse Server Docker container
+  docker_container:
+    name: "{{ clickhouse_docker_container_name }}"
+    image: yandex/clickhouse-server:{{ clickhouse_docker_version }}
+    restart_policy: always
+    restart: "{{ clickhouse_docker_restart }}"
+    network_mode: "{{ clickhouse_docker_network_mode }}"
+    networks: "{{ clickhouse_docker_networks }}"
+    volumes: "{{ clickhouse_docker_bind_mounts }}"
+    ulimits: "{{ clickhouse_docker_ulimits }}"
+    published_ports: "{{ clickhouse_docker_published_ports }}"
+    exposed_ports: "{{ clickhouse_docker_exposed_ports }}"
+    purge_networks: "{{ clickhouse_docker_purge_networks }}"
+    log_driver: "{{ clickhouse_docker_log_driver }}"
+    log_options: "{{ clickhouse_docker_log_options }}"
