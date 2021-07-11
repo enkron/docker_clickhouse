@@ -1,12 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-BASE_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )
+servers="0.0.0.0:49313 0.0.0.0:49317"
 
-servers="172.1.1.1 172.1.1.2"
-port="8123"
-
-
-sql_local="CREATE TABLE IF NOT EXISTS test_local
+sql_query="CREATE TABLE IF NOT EXISTS test_table
 (
     date Date,
     id UInt32,
@@ -14,18 +10,14 @@ sql_local="CREATE TABLE IF NOT EXISTS test_local
 )
 ENGINE = MergeTree(date, (id), 8192);"
 
-sql_dist="CREATE TABLE IF NOT EXISTS test AS test_local
-  ENGINE = Distributed(no-replica-cluster, default, test_local, rand());"
-
-# create tables
-for server in $servers
-do
-
-    echo $sql_local | curl -XPOST 'http://'$server':'$port'/' --data-binary @-
-    echo $sql_dist | curl -XPOST 'http://'$server':'$port'/' --data-binary @-
-
+for server in $servers; do
+    echo $sql_query | curl -XPOST 'http://'$server'/' --data-binary @-
+    echo "INSERT INTO test_table(date,id,value) VALUES ('2006-08-08',1,'https://www.helloclickhouse.com/')" | curl -XPOST 'http://'$server'/' --data-binary @-
 done
 
-# insert data
-echo "INSERT INTO test(date,id,value) VALUES ('2006-08-08',1,'https://www.helloclickhouse.com/')" | curl -XPOST 'http://172.1.1.1:'$port'/' --data-binary @-
-echo "INSERT INTO test_local(date,id,value) VALUES ('2016-06-01',2,'https://www.onetwothree.net/')" | curl -XPOST 'http://172.1.1.2:'$port'/' --data-binary @-
+#echo "SHOW DATABASES" |curl -XPOST http://0.0.0.0:49313/ --data-binary @-
+echo "desc default.test_table" |curl -XPOST http://0.0.0.0:49313/ --data-binary @-
+echo "SELECT * FROM default.test_table" |curl -XPOST http://0.0.0.0:49313/ --data-binary @-
+
+echo "desc default.test_table" |curl -XPOST http://0.0.0.0:49317/ --data-binary @-
+echo "SELECT * FROM default.test_table" |curl -XPOST http://0.0.0.0:49317/ --data-binary @-
