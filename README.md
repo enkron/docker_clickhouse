@@ -10,7 +10,7 @@
 
     - `tests/test_local_cluster.sh` tests created ClickHouse instances:
       creates table, inserts some data into it and prints results to stdout.
-      <img src="docs/test_results.png" width="800" height="100">
+      <img src="docs/test_results.png" width="800" height="200">
 
 3) Initializing new test scenario `default`
 
