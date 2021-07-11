@@ -8,6 +8,10 @@
     - `docker ps` command prints created containers: "clockhouse-1", "clockhouse-2".
       <img src="docs/created_clickhouse_containers.png" width="800" height="80">
 
+    - `tests/test_local_cluster.sh` tests created ClickHouse instances:
+      creates table, inserts some data into it and prints results to stdout.
+      <img src="docs/test_results.png" width="800" height="100">
+
 3) Initializing new test scenario `default`
 
 
