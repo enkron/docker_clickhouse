@@ -3,7 +3,7 @@
       https://galaxy.ansible.com/searchmetrics/ansible-role-docker-clickhouse
 
     - Ansible play `test_local_cluster.yml` creates docker network with 2 clickhouse nodes
-      ![alt text](docs/created_clickhouse_containers.png "test_local_cluster.yml Ansible playbook")
+      <img src="docs/created_clickhouse_containers.png" width="800" height="80">
 
 3) Initializing new test scenario `default`
 
