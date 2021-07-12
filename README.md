@@ -14,12 +14,12 @@
 
 2) uid/gid -> 100:1000
     - uid 100 already busy with `systemd-timesync` service user:
-      <img src="docs/uid_already_exists.png" width="800" height="200">
+      <img src="docs/uid_already_exists.png" width="800" height="100">
 
     - to change `clickhouse` user UID/GID, for example, to 1000:1000, it
       is possible to run a container as a root and change IDs within
       `usermod`, `groupmod` commands:
-      <img src="docs/changed_uid_gid.png" width="800" height="200">
+      <img src="docs/changed_uid_gid.png" width="800" height="100">
 
 3) Initializing new test scenario `default`
 
