@@ -1,6 +1,6 @@
 ---
 - name: Converge
-  hosts: all
+  hosts: localhost
   tasks:
     - name: "Include docker_clickhouse"
       include_role:

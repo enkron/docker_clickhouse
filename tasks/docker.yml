@@ -15,4 +15,4 @@
     purge_networks: "{{ clickhouse_docker_purge_networks }}"
     log_driver: "{{ clickhouse_docker_log_driver }}"
     log_options: "{{ clickhouse_docker_log_options }}"
-    user: 0
+    #user: 0
