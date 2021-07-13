@@ -21,9 +21,9 @@
       `usermod`, `groupmod` commands:
       <img src="docs/changed_uid_gid.png" width="800" height="100">
 
-3) Initializing new test scenario `default`
-
-
+3) Molecule test:
+    - init test suite for existing role `molecule init scenario -r docker_clickhouse`
+    - run comlete loop of default tests with `molecule test`
 
 tested on:
 MacOS BigSur 11.4: Darwin Kernel Version 20.5.0,
